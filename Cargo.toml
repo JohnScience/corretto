@@ -1,12 +1,28 @@
 [package]
 name = "corretto"
-version = "0.1.0"
 edition = "2021"
+version = "0.1.0"
+authors = ["Dmitrii Demenev <demenev.dmitriy1@gmail.com>"]
+description = "Library for installing and finding info about Corretto OpenJDK."
+documentation = "https://docs.rs/corretto"
+readme = "README.md"
+keywords = ["jdk", "openjdk", "install"]
+categories = ["api-bindings"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/JohnScience/corretto"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies.reqwest]
+version = "0.11"
+features = ["json"]
 
-[dependencies]
-serde = { version = "1", features = ["derive"] }
-reqwest = { version = "0.11", features = ["json"] }
-tokio = { version = "1", features = ["full"] }
-sorted-vec2 = { version = "0.1", features = ["serde"] }
+[dependencies.serde]
+version = "1"
+features = ["derive"]
+
+[dependencies.sorted-vec2]
+version = "0.1"
+features = ["serde"]
+
+[dependencies.tokio]
+version = "1"
+features = ["full"]
