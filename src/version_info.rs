@@ -4,7 +4,7 @@ use sorted_vec2::SortedVec;
 use crate::Version;
 
 /// A struct describing the data from
-/// https://github.com/corretto/corretto-downloads/blob/ace4e5da8accabdcd7a214d86dbbdb7417fbf11a/latest_links/version-info.json
+/// <https://github.com/corretto/corretto-downloads/blob/ace4e5da8accabdcd7a214d86dbbdb7417fbf11a/latest_links/version-info.json>.
 #[derive(Deserialize)]
 #[cfg_attr(test, derive(Debug))]
 pub struct VersionInfo {
