@@ -1,12 +1,19 @@
 use std::fmt::Display;
 
+/// A file extension.
 #[non_exhaustive]
 pub enum Ext {
+    /// Debian package.
     Deb,
+    /// Red Hat package.
     Rpm,
+    /// Gzipped Tarball.
     TarGz,
+    /// Microsoft Installer.
     Msi,
+    /// macOS package.
     Pkg,
+    /// Zip archive.
     Zip,
 }
 

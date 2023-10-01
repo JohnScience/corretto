@@ -11,6 +11,10 @@ categories = ["api-bindings"]
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/JohnScience/corretto"
 
+[dependencies]
+thiserror = "1"
+tempfile = "3"
+
 [dependencies.reqwest]
 version = "0.11"
 features = ["json"]

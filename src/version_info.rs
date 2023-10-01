@@ -8,8 +8,11 @@ use crate::Version;
 #[derive(Deserialize)]
 #[cfg_attr(test, derive(Debug))]
 pub struct VersionInfo {
+    /// Supported Long-Term Support (LTS) releases.
     pub supported_lts_releases: SortedVec<Version>,
+    /// Supported feature releases.
     pub supported_feature_releases: SortedVec<Version>,
+    /// End-of-life releases.
     pub end_of_life_releases: SortedVec<Version>,
 }
 
@@ -25,28 +28,44 @@ impl VersionInfo {
     }
 
     /// Returns the latest LTS release.
+    ///
+    /// # Panics
+    ///
+    /// Panics if no LTS releases are found.
     pub fn latest_lts(&self) -> Version {
-        match self.supported_lts_releases.last().copied() {
+        match self.latest_lts_checked() {
             Some(version) => version,
             None => unreachable!("No LTS releases found"),
         }
     }
 
+    /// Returns the latest LTS release, if any available.
+    pub fn latest_lts_checked(&self) -> Option<Version> {
+        self.supported_lts_releases.last().copied()
+    }
+
     /// Returns the latest release.
+    ///
+    /// # Panics
+    ///
+    /// Panics if no releases are found.
     pub fn latest(&self) -> Version {
-        let latest_release = [
+        match self.latest_checked() {
+            Some(version) => version,
+            None => unreachable!("No releases found"),
+        }
+    }
+
+    /// Returns the latest release, if any available.
+    pub fn latest_checked(&self) -> Option<Version> {
+        [
             &self.supported_lts_releases,
             &self.supported_feature_releases,
             &self.end_of_life_releases,
         ]
         .iter()
-        .map(|v| v.last().copied())
-        .filter_map(|v| v)
-        .max();
-        match latest_release {
-            Some(version) => version,
-            None => unreachable!("No releases found"),
-        }
+        .filter_map(|v| v.last().copied())
+        .max()
     }
 
     fn downloadable_len(&self) -> usize {
@@ -71,22 +90,25 @@ mod tests {
     use super::*;
 
     #[tokio::test]
+    #[ignore]
     async fn check_version_info() {
         let version_info = VersionInfo::fetch().await.unwrap();
         println!("{:#?}", version_info);
     }
 
     #[tokio::test]
+    #[ignore]
     async fn check_latest_lts() {
         let version_info = VersionInfo::fetch().await.unwrap();
         println!("Latest LTS: {:#?}", version_info.latest_lts());
     }
 
     #[tokio::test]
+    #[ignore]
     async fn check_downloadable_locally_sorted() {
         let version_info = VersionInfo::fetch().await.unwrap();
         println!(
-            "Downloadable version: {:#?}",
+            "Downloadable versions: {:#?}",
             version_info.downloadable_locally_sorted()
         );
     }

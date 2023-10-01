@@ -1,9 +1,13 @@
 use std::fmt::{Display, Formatter};
 
+/// A CPU architecture.
 #[non_exhaustive]
 pub enum CpuArch {
+    /// x64 architecture (also known as amd64).
     X64,
+    /// ARM 64-bit architecture.
     Aarch64,
+    /// x86 64-bit architecture.
     X86_64,
 }
 

@@ -1,10 +1,15 @@
 use std::fmt::{Display, Formatter};
 
+/// An operating system.
 #[non_exhaustive]
 pub enum Os {
+    /// Linux.
     Linux,
+    /// Windows.
     Windows,
+    /// macOS.
     MacOS,
+    /// Alpine Linux.
     Alpine,
 }
 
